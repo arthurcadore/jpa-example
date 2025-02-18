@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  database:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-db
+    container_name: database
+    restart: always
+    env_file:
+      - ./env/.env_db
+    volumes:
+      - ./db/setup.sql:/docker-entrypoint-initdb.d/1-setup.sql
+      - ./db/insertion.sql:/docker-entrypoint-initdb.d/2-insertion.sql
+    ports:
+      - "3306:3306"
+
+volumes:
+  mariadb_data:
