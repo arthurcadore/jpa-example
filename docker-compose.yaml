@@ -15,5 +15,16 @@ services:
     ports:
       - "3306:3306"
 
+  springjpa: 
+    build: 
+      context: .
+      dockerfile: ./docker/Dockerfile-jpa
+    container_name: springjpa
+    restart: always
+    env_file: 
+      - ./env/.env_jpa
+    volumes:
+      - ./ArthurJPA:/app
+
 volumes:
   mariadb_data:

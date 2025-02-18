@@ -1,0 +1,13 @@
+# Usar a imagem base do OpenJDK 21
+FROM openjdk:21-jdk-slim
+
+# Definir o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Instalar dependências do sistema (se necessário)
+RUN apt-get update && apt-get install -y \
+    maven \
+    && rm -rf /var/lib/apt/lists/*
+
+# Mantem o container em execução para que possamos acessar o terminal
+CMD ["./gradlew", "bootRun" && "tail", "-f", "/dev/null"]
